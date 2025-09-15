@@ -25,7 +25,7 @@ async function connectDB() {
 connectDB();
 
 
-app.post('/api/customer', async (req,res) =>{
+app.post('/api/orders', async (req,res) =>{
     try {
         const newCustomer = new Customer(req.body);
         const savedCustomer = await newCustomer.save();
@@ -43,7 +43,7 @@ app.post('/api/customer', async (req,res) =>{
     }
 });
 
-app.get('/api/customers', async (req, res) => {
+app.get('/api/orders', async (req, res) => {
     try {
     const allCustomers = await Customer.find();
     res.status(200).json({
@@ -60,7 +60,7 @@ app.get('/api/customers', async (req, res) => {
     }
 });
 
-app.get('/api/:id', async (req,res)=>{
+app.get('/api/orders/:id', async (req,res)=>{
     try {
         const id = req.params.id;
         const customerid = await Customer.findById(id);
@@ -78,7 +78,7 @@ app.get('/api/:id', async (req,res)=>{
     }
 });
 
-app.put('/api/customer/:id', async (req,res)=>{
+app.put('/api/orders/:id', async (req,res)=>{
     try {
         const updatedcustomer = await Customer.findByIdAndUpdate(
             req.params.id,
