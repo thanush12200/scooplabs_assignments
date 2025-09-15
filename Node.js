@@ -108,3 +108,27 @@ app.put('/api/orders/:id', async (req,res)=>{
     }
 })
 
+app.delete('/api/orders/:id', async (req, res) => {
+    try {
+        const deletedCustomer = await Customer.findByIdAndDelete(req.params.id);
+
+        if (!deletedCustomer) {
+            return res.status(404).json({
+                success: false,
+                message: 'customer not found',
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'customer deleted successfully',
+            data: deletedCustomer,
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'error deleting customer',
+            error: error.message,
+        });
+    }
+});
